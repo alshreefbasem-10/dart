@@ -1,6 +1,20 @@
 import 'dart:async';
 
 void main() {
+  //iterable example
+  print('Even numbers up to 10: ${evenNumbers(10).toList()}');
+
+  //function examples
+  print('Add: ${add(3, 5)}');
+  print('Multiply: ${multiply(4, 6)}');
+  print('Operate (Add): ${operate(2, 3, add)}');
+  print('Operate (Multiply): ${operate(2, 3, multiply)}');
+
+  //future example and async-await
+  fetchData().then((data) {
+    print('Future data: $data');
+  });
+
   mainAsync();
   //stream example
   var myStream = MyStream();
@@ -13,21 +27,21 @@ void main() {
   print('Nullable string: $nullableString');
 }
 
-class MyIterator implements Iterator<int> {
-  final List<int> _data;
-  int _index = -1;
-
-  MyIterator(this._data);
-
-  @override
-  int get current => _data[_index];
-
-  @override
-  bool moveNext() {
-    _index++;
-    return _index < _data.length;
+//iterable even numbers
+Iterable<int> evenNumbers(int n) sync* {
+  for (int i = 0; i <= n; i += 2) {
+    yield i;
   }
 }
+
+//normal function&arrow function&anonymous function
+int add(int a, int b) => a + b;
+var multiply = (int a, int b) => a * b;
+//heigher order function
+int operate(int a, int b, int Function(int, int) operation) {
+  return operation(a, b);
+}
+
 //stream
 
 class MyStream {
